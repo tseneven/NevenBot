@@ -7,5 +7,17 @@ namespace BotAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        ILogger<UserController> _logger;
+
+        public UserController(ILogger<UserController> logger,)
+        {
+            _logger = logger;
+        }
+
+        [HttpPost("createuser")]
+        public async Task<ActionResult> CreateUser(long tgID, )
+        {
+            _logger.LogInformation($"POST запрос api/User/createuser \n id: {id}");
+        }
     }
 }

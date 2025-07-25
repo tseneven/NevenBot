@@ -7,14 +7,15 @@ using Telegram.Bot.Types;
 using Telegram.Bot;
 using NevenBot.Keyboards;
 using System.Collections.Concurrent;
-using NevenBot.Dto;
+using static DTO.UserStateDTO;
 using System.ComponentModel;
+using DTO;
 
 namespace NevenBot.Handlers
 {
     internal class MessageHandler
     {
-        public static ConcurrentDictionary<long, UserState> UserStates = new();
+        public static ConcurrentDictionary<long, UserStateDTO> UserStates = new();
 
         public static async Task HandleAsync(ITelegramBotClient botClient, Message message) 
         {
