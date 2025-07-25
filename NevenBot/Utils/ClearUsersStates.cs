@@ -8,6 +8,7 @@ namespace NevenBot.Utils
 
         public void Start()
         {
+            Logger.TimerStart();
             _timer = new Timer(
                 callback: ClearUserStates,
                 state: null,
@@ -18,8 +19,7 @@ namespace NevenBot.Utils
 
         private void ClearUserStates(object? state)
         {
-            Console.WriteLine("⏰ Очистка состояний пользователей...");
-            Console.WriteLine($"Очищено {MessageHandler.UserStates.Count} состояний!");
+            Logger.TimerEnd();
             MessageHandler.UserStates.Clear();
         }
     }

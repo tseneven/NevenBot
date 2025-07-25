@@ -32,6 +32,10 @@ class Host
         _botClient.StartReceiving(UpdateHandler, ErrorHandler, _receiverOptions, cts.Token); // Запускаем бота
 
         Task.Delay(-1); // Бесконечная задержка
+
+        var clearUsersStates = new NevenBot.Utils.ClearUsersStates();
+        clearUsersStates.Start();
+
         return Task.CompletedTask;
     }
 
