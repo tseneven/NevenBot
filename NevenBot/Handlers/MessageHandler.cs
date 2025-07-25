@@ -10,19 +10,24 @@ using System.Collections.Concurrent;
 using static DTO.UserStateDTO;
 using System.ComponentModel;
 using DTO;
+using NevenBot.Repositorys;
 
 namespace NevenBot.Handlers
 {
     internal class MessageHandler
     {
         public static ConcurrentDictionary<long, UserStateDTO> UserStates = new();
+        static public IUser_Repository? _Repository = new User_Repository();
+
 
         public static async Task HandleAsync(ITelegramBotClient botClient, Message message) 
         {
+
             if (message.Text == null)
                 return;
 
             long chatId = message.Chat.Id;
+
 
             if (message.Text.ToLower()[0] == '/')
             {
@@ -30,7 +35,13 @@ namespace NevenBot.Handlers
                 {
                     case "/start":
                         await InlineKeyboards.MenuInlineKeyboard(botClient, chatId);
-
+                        UserDTO userDTO = new UserDTO
+                        {
+                            tgid = chatId,
+                            username = message.Chat.Username,
+                            displayname = message.Chat.FirstName,
+                        };
+                        _Repository?.Create(userDTO);
                         break;
 
                     case "/help":

@@ -1,4 +1,4 @@
-﻿using NevenBot.Dto;
+﻿using DTO;
 using NevenBot.Handlers;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace NevenBot.Utils
     {
         static public void Add(long id, string text)
         {
-            var userState = MessageHandler.UserStates.GetOrAdd(id, new UserState());
+            var userState = MessageHandler.UserStates.GetOrAdd(id, new UserStateDTO());
             userState.State = text;
         }
     }

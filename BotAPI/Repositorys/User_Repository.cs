@@ -24,7 +24,7 @@ namespace BotAPI.Repositorys
                 using var checkCmd = new SqlCommand(checkQuery, conn);
                 checkCmd.Parameters.AddWithValue("@tgid", userDTO.tgid);
 
-                int count = (int)await checkCmd.ExecuteScalarAsync();
+                var count = (int?)await checkCmd.ExecuteScalarAsync();
 
                 if (count > 0)
                     return "409"; // пользователь уже есть

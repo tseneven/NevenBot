@@ -32,6 +32,7 @@ namespace BotAPI.Controllers
                 {
                     "200" => Ok(),
                     "409" => StatusCode(409),
+                    _ => StatusCode(400),
                 };
             }
             catch (Exception ex) 
