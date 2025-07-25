@@ -19,7 +19,9 @@ namespace NevenBot
                 // Инициализация бота
                 Host.Start(token);
                 Console.ReadKey();
-
+                
+                var clearUsersStates = new Utils.ClearUsersStates();
+                clearUsersStates.Start();
             }
             else
             {

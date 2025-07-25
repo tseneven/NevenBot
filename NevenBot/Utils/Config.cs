@@ -31,7 +31,7 @@ namespace NevenBot.Utils
             }
         }
 
-        static public int GetDebugID()
+        static public long GetDebugID()
         {
             try
             {
@@ -41,7 +41,7 @@ namespace NevenBot.Utils
 
                 IConfiguration config = builder.Build();
 
-                int DebugId = int.Parse(config["DebugID"]);
+                long DebugId = long.Parse(config["DebugID"]);
 
                 return DebugId;
 
@@ -56,4 +56,4 @@ namespace NevenBot.Utils
     }
 
 }
-}
+

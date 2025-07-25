@@ -58,7 +58,6 @@ class Host
             {
                 case UpdateType.Message:
                 {
-                        Console.WriteLine($"Лог {update.Message?.Text ?? "Not Text"}");
                         if (update.Message is { } msg)
                         {
                             await MessageHandler.HandleAsync(client, msg);
@@ -67,7 +66,6 @@ class Host
                 }
                 case UpdateType.CallbackQuery:
                 {
-                        Console.WriteLine($"Лог Callback {update.CallbackQuery?.Message?.Text ?? "Not Text"}");
                         await CallbackHandler.HandleAsync(client, update.CallbackQuery!);
                         return;
                 }

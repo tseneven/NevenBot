@@ -7,6 +7,7 @@ using Telegram.Bot.Types;
 using Telegram.Bot;
 using NevenBot.Keyboards;
 using NevenBot.Utils;
+using NevenBot.Dto;
 
 namespace NevenBot.Handlers
 {
@@ -21,7 +22,7 @@ namespace NevenBot.Handlers
             if (data == null)
                 return;
 
-            int DebugID = Config.GetDebugID();
+            long DebugID = Config.GetDebugID();
 
             switch (data)
             {
@@ -51,62 +52,83 @@ namespace NevenBot.Handlers
 
                 // Метод добавления траты
                 case "add_spending":
-                    await botClient.AnswerCallbackQuery(callback.Id, "show_spending!");
-                    await botClient.DeleteMessage(callback.Message?.Chat.Id ?? DebugID, messageId: callback.Message?.Id ?? 0);
+                    Add(callback.Message?.Chat.Id, "add_spending", "spending");
                     break;
 
                 // Метод удаления траты
                 case "delete_spending":
-                    await botClient.AnswerCallbackQuery(callback.Id, "Пока!");
-                    await botClient.DeleteMessage(callback.Message?.Chat.Id ?? DebugID, messageId: callback.Message?.Id ?? 0);
+                    Add(callback.Message?.Chat.Id, "delete_spending", "spending");
                     break;
 
                 // Метод показа списка трат
                 case "show_spending":
-                    await botClient.AnswerCallbackQuery(callback.Id, "Пока!");
-                    await botClient.DeleteMessage(callback.Message?.Chat.Id ?? DebugID, messageId: callback.Message?.Id ?? 0);
+                    Add(callback.Message?.Chat.Id, "show_spending", "spending");
                     break;
 
                 // Метод показа списка задач
                 case "show_list_of_task":
-                    await botClient.AnswerCallbackQuery(callback.Id, "Пока!");
-                    await botClient.DeleteMessage(callback.Message?.Chat.Id ?? DebugID, messageId: callback.Message?.Id ?? 0);
+                    Add(callback.Message?.Chat.Id, "show_list_of_task", "list_of_task");
                     break;
 
                 // Метод добавления задачи
                 case "add_task":
-                    await botClient.AnswerCallbackQuery(callback.Id, "Пока!");
-                    await botClient.DeleteMessage(callback.Message?.Chat.Id ?? DebugID, messageId: callback.Message?.Id ?? 0);
+                    Add(callback.Message?.Chat.Id, "add_task", "list_of_task");
                     break;
 
                 // Метод удаления задачи
                 case "delete_task":
-                    await botClient.AnswerCallbackQuery(callback.Id, "Пока!");
-                    await botClient.DeleteMessage(callback.Message?.Chat.Id ?? DebugID, messageId: callback.Message?.Id ?? 0);
+                    Add(callback.Message?.Chat.Id, "delete_task", "list_of_task");
                     break;
 
                 // Метод показа списка напоминаний
                 case "show_reminders":
-                    await botClient.AnswerCallbackQuery(callback.Id, "Пока!");
-                    await botClient.DeleteMessage(callback.Message?.Chat.Id ?? DebugID, messageId: callback.Message?.Id ?? 0);
+                    Add(callback.Message?.Chat.Id, "show_reminder", "reminder");
                     break;
 
                 // Метод добавления напоминания
                 case "add_reminder":
-                    await botClient.AnswerCallbackQuery(callback.Id, "Пока!");
-                    await botClient.DeleteMessage(callback.Message?.Chat.Id ?? DebugID, messageId: callback.Message?.Id ?? 0);
+                    Add(callback.Message?.Chat.Id, "add_reminder", "reminder");
                     break;
 
                 // Метод удаления напоминания
                 case "delete_reminder":
-                    await botClient.AnswerCallbackQuery(callback.Id, "Пока!");
-                    await botClient.DeleteMessage(callback.Message?.Chat.Id ?? DebugID, messageId: callback.Message?.Id ?? 0);
+                    Add(callback.Message?.Chat.Id, "delete_reminder", "reminder");
                     break;
+                   
+                // Метод выхода в раздел трат
+                case "back|spending":
+                    await InlineKeyboards.SpendingInlineKeyboard(botClient, callback.Message?.Chat.Id ?? DebugID);
+                    await botClient.DeleteMessage(callback.Message?.Chat.Id ?? DebugID, messageId: callback.Message?.Id ?? 0);
+                    MessageHandler.UserStates.TryRemove(callback.Message?.Chat.Id ?? DebugID, out _);
+                    break;
+
+                // Метод выхода в раздел списка задач
+                case "back|list_of_task":
+                    await InlineKeyboards.List_Of_TasksInlineKeyboard(botClient, callback.Message?.Chat.Id ?? DebugID);
+                    await botClient.DeleteMessage(callback.Message?.Chat.Id ?? DebugID, messageId: callback.Message?.Id ?? 0);
+                    MessageHandler.UserStates.TryRemove(callback.Message?.Chat.Id ?? DebugID, out _);
+                    break;
+
+                // Метод выхода в напоминаний
+                case "back|reminder":
+                    await InlineKeyboards.RemindersInlineKeyboard(botClient, callback.Message?.Chat.Id ?? DebugID);
+                    await botClient.DeleteMessage(callback.Message?.Chat.Id ?? DebugID, messageId: callback.Message?.Id ?? 0);
+                    MessageHandler.UserStates.TryRemove(callback.Message?.Chat.Id ?? DebugID, out _);
+                    break;
+
 
                 // Защита каллбеков
                 default:
                     await botClient.AnswerCallbackQuery(callback.Id, "Неизвестная команда");
                     break;
+            }
+
+            async void Add(long? id, string text, string start)
+            {
+                await botClient.DeleteMessage(id ?? DebugID, messageId: callback.Message?.Id ?? 0);
+                AddUserState.Add(id ?? DebugID, text);
+                Logger.LoggerInConsole(id ?? DebugID, text);
+                await InlineKeyboards.EditInlineKeyboard(botClient, id ?? DebugID, "Введите название", start);
             }
         }
     }

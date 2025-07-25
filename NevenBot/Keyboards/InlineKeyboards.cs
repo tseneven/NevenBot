@@ -97,5 +97,22 @@ namespace NevenBot.Keyboards
             );
         }
 
+        public static async Task EditInlineKeyboard(ITelegramBotClient botClient, long chatId, string text, string start)
+        {
+            var inlineKeyboard = new InlineKeyboardMarkup(new[]
+            {
+                new[]
+                {
+                    InlineKeyboardButton.WithCallbackData("Назад🔙", $"back|{start}"),
+                }
+            });
+
+            await botClient.SendMessage(
+                chatId: chatId,
+                text: text,
+                replyMarkup: inlineKeyboard
+            );
+        }
+
     }
 }
