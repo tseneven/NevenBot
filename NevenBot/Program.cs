@@ -2,6 +2,7 @@
 using Telegram.Bot;
 using Telegram.Bot.Types;
 using NevenBot.Keyboards;
+using NevenBot.Utils;
 
 namespace NevenBot
 {
@@ -11,13 +12,12 @@ namespace NevenBot
 
         static void Main(string[] args)
         {
-            string token = GetToken();
+            string token = Config.GetToken();
 
             if (token != "Error: Token not found")
             {
                 // Инициализация бота
                 Host.Start(token);
-                Host.OnMessage += OnMessageStart;
                 Console.ReadKey();
 
             }
@@ -28,32 +28,5 @@ namespace NevenBot
 
         }
 
-        // Метод действия бота на сообщение пользователя
-        private static async void OnMessageStart(ITelegramBotClient client, Update update)
-        {
-
-        }
-
-        static private string GetToken()
-        {
-            try
-            {
-                var builder = new ConfigurationBuilder()
-              .SetBasePath(Directory.GetCurrentDirectory())
-              .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-
-                IConfiguration config = builder.Build();
-
-                string token = config["ApiToken"];
-
-                return token;
-
-            }
-            catch
-            {
-                return "Error: Token not found";
-
-            }
-        }
     }
 }
