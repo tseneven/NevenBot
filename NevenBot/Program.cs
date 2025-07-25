@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Telegram.Bot;
 using Telegram.Bot.Types;
+using NevenBot.Keyboards;
 
 namespace NevenBot
 {
@@ -16,24 +17,23 @@ namespace NevenBot
             {
                 // Инициализация бота
                 Host.Start(token);
-                Host.OnMessage += OnMessage;
+                Host.OnMessage += OnMessageStart;
                 Console.ReadKey();
 
             }
             else
             {
-                Console.WriteLine(@"Ошибка, отсутствует токен или appsettings.json в папке \bin\Debug\net8.0\");
+                Console.WriteLine("Ошибка, отсутствует токен или appsettings.json");
             }
 
         }
 
-        // Метод действия бота на сообщение пользователя. Сюда основной функционал и вызов методов API и работы с DB
-        private static async void OnMessage(ITelegramBotClient client, Update update)
+        // Метод действия бота на сообщение пользователя
+        private static async void OnMessageStart(ITelegramBotClient client, Update update)
         {
-            await client.SendMessage(update.Message?.Chat.Id ?? 8152895676, "Текст");
+
         }
 
-        // Метод получения токена из appsettings.json
         static private string GetToken()
         {
             try

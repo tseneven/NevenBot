@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NevenBot.Handlers;
+using NevenBot.Keyboards;
+using System;
 using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
@@ -22,6 +24,7 @@ class Host
             AllowedUpdates = new[]
             {
                 UpdateType.Message,
+                UpdateType.CallbackQuery,
             },
         };
 
@@ -60,8 +63,17 @@ class Host
                         OnMessage?.Invoke(client, update);
                         return;
                 }
+                case UpdateType.CallbackQuery:
+                {
+                        Console.WriteLine($"Лог Callback {update.CallbackQuery?.Message?.Text ?? "Not Text"}");
+                        await CallbackHandler.HandleAsync(client, update.CallbackQuery!);
+                        return;
 
+
+                }
             }
+
+
             await Task.CompletedTask;
         }
         catch (Exception ex)
