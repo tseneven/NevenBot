@@ -7,7 +7,6 @@ using Telegram.Bot.Types;
 using Telegram.Bot;
 using NevenBot.Keyboards;
 using NevenBot.Utils;
-using NevenBot.Dto;
 
 namespace NevenBot.Handlers
 {

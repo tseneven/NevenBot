@@ -30,6 +30,7 @@ namespace NevenBot.Handlers
                 {
                     case "/start":
                         await InlineKeyboards.MenuInlineKeyboard(botClient, chatId);
+
                         break;
 
                     case "/help":
