@@ -99,7 +99,7 @@ namespace NevenBot.Handlers
                 case "back|spending":
                     await InlineKeyboards.SpendingInlineKeyboard(botClient, callback.Message?.Chat.Id ?? DebugID);
                     await botClient.DeleteMessage(callback.Message?.Chat.Id ?? DebugID, messageId: callback.Message?.Id ?? 0);
-                    MessageHandler.UserStates.TryRemove(callback.Message?.Chat.Id ?? DebugID, out _);
+                    
                     break;
 
                 // Метод выхода в раздел списка задач
