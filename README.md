@@ -63,9 +63,9 @@ NevenBot/
 
 ```
 {
-	"ConnectionStrings": {
-		"DefaultConnection": "Server=DESKTOP-O1R63ID\\SQLEXPRESS;Database=NevenBotTG;Trusted_Connection=True;TrustServerCertificate=True;"
-	}
+ "ConnectionStrings": {
+    "DefaultConnection": "Server=DESKTOP-O1R63ID\\SQLEXPRESS;Database=NevenBotTG;Trusted_Connection=True;TrustServerCertificate=True;"
+ }
 }
 ```
 Запустить через exe
