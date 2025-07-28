@@ -16,7 +16,7 @@ namespace NevenBot.Repositorys
         {
             try
             {
-               var response = await _HttpClient.PostAsJsonAsync("http://localhost:8000/api/User/createuser", userDTO);
+               var response = await _HttpClient.PostAsJsonAsync("http://localhost:8008/api/User/createuser", userDTO);
 
                 Console.WriteLine($"Запрос завершился кодом: {response.StatusCode.ToString()} у ID: {userDTO.tgid}");
                 return await response.Content.ReadAsStringAsync();

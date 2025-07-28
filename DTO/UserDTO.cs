@@ -2,10 +2,10 @@
 {
     public class UserDTO
     {
-        public long? tgid;
-        public string? username;
-        public string? displayname = null;
-        public bool? isActive = true;
-        public DateTime? atCreated;
+        public long tgid { get; set; }
+        public string username { get; set; }
+        public string displayname { get; set; }
+        public bool isActive { get; set; } = true;
+        public DateTime atCreated { get; set; }
     }
 }
