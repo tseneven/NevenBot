@@ -39,6 +39,7 @@ NevenBot/
 ├── README.md           # Это описание проекта
 ├── .gitignore          # gitingore
 ├── NevenBot.sln        # Солюшин файл
+├── db.sql              # Скрипт базы данных
 ```
 
 # Функционал
